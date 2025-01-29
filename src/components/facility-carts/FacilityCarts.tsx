@@ -1,5 +1,5 @@
 import "src/components/facility-carts/FacilityCarts.css";
-import {  useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { Box } from "@mui/material";
 import { Facility } from "@/interfaces/Facility";
@@ -11,12 +11,12 @@ interface FacilityCartProps {
 const FacilityCarts = ({ facility }: FacilityCartProps): JSX.Element => {
   const fieldId = facility.id;
   console.log(facility);
- 
-  const [isFavorited, setIsFavorited] = useState(false);
-  
-  
 
-  
+  const [isFavorited, setIsFavorited] = useState(false);
+
+
+
+
 
 
 
@@ -33,8 +33,7 @@ const FacilityCarts = ({ facility }: FacilityCartProps): JSX.Element => {
       if (response.status === 200) {
         setIsFavorited(newFavoriteStatus);
         console.log(
-          `Court ID ${fieldId} favorilere ${
-            newFavoriteStatus ? "eklendi" : "silindi"
+          `Court ID ${fieldId} favorilere ${newFavoriteStatus ? "eklendi" : "silindi"
           }.`
         );
       } else {
@@ -48,7 +47,7 @@ const FacilityCarts = ({ facility }: FacilityCartProps): JSX.Element => {
   return (
     <Box
       sx={{
-        width: "86rem",
+        width: "60vw",
         height: "14rem",
         marginLeft: "2rem",
         display: "flex",
@@ -108,7 +107,7 @@ const FacilityCarts = ({ facility }: FacilityCartProps): JSX.Element => {
           {facility.name.toString()}
         </Box>
 
-     {/*   <hr
+        {/*   <hr
           style={{
             width: "4rem",
             border: "none",
@@ -118,41 +117,43 @@ const FacilityCarts = ({ facility }: FacilityCartProps): JSX.Element => {
             height: 0,
           }}
         /> */}
-      <Box          
-            sx={{display: "flex" , flexDirection: "row" , }}        
-          >         
-        {facility.amenities.map((amenity: { name: string; id: string; imageUrl: string }, ) => (
-          
+        <Box
+          sx={{ display: "flex", flexDirection: "row", }}
+        >
+          {facility.amenities.map((amenity: { name: string; id: string; imageUrl: string },) => (
+
             <img
-            src={amenity.imageUrl || "/images/placeholder.png"}
-            style={{
+              src={amenity.imageUrl || "/images/placeholder.png"}
+              style={{
+                width: "1.5rem",
+                height: "1.5rem",
+                borderRadius: "0.3rem",
+                objectFit: "cover",
+                margin: "0.3rem 0.3rem 0.3rem 0.3rem",
+              }}
+            />
+          ))}
+        </Box>
+
+        <Box
+          sx={{ display: "flex", flexDirection: "row", marginTop: "0.6rem" }}
+        >
+          {facility.capacities.map((capacity) => (
+            <Box sx={{
               width: "1.5rem",
               height: "1.5rem",
-              borderRadius: "0.3rem",
-              objectFit: "cover",
-              margin: "0.3rem 0.3rem 0.3rem 0.3rem",
-            }}
-          />
-        ))}
-      </Box>
+              textAlign: "center",
+              fontFamily: "Roboto",
+              fontSize: "15px",
+              minWidth: "3rem",
+              margin: "0.3rem 0 0 0.5rem",
+            }} >
+              {capacity / 2}+{capacity / 2}
+            </Box>
 
-      <Box          
-            sx={{display: "flex" , flexDirection: "row" ,marginTop: "0.6rem"}}        
-          >         
-        {facility.capacities.map((capacity) => (
-          <Box sx={{width: "1.5rem",
-            height: "1.5rem",
-            textAlign: "center",
-            fontFamily: "Roboto",
-            fontSize: "15px",
-            minWidth: "3rem",
-            margin: "0.3rem 0 0 0.5rem",}} >
-            {capacity / 2}+{capacity / 2}
-          </Box>
-            
-        ))}
-      </Box>        
-        
+          ))}
+        </Box>
+
         {/*
         <hr
           style={{
@@ -220,7 +221,6 @@ const FacilityCarts = ({ facility }: FacilityCartProps): JSX.Element => {
 
       <Box
         sx={{
-         
           width: "15rem",
           display: "flex",
           flexDirection: "column",
@@ -284,8 +284,10 @@ const FacilityCarts = ({ facility }: FacilityCartProps): JSX.Element => {
             / Saat
           </Box>
         </Box>
+
       </Box>
-      
+   
+
     </Box>
   );
 };

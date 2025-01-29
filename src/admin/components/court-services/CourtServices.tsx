@@ -5,6 +5,7 @@ import { styled } from '@mui/system';
 import axios from 'axios';
 import { useAuth } from 'react-oidc-context';
 import { Facility } from '@/interfaces/Facility';
+import { getIdFromToken } from '@/services/DecodedJwt';
 
 const Input = styled('input')({
   display: 'none',
@@ -35,9 +36,12 @@ useEffect(() => {
   console.log(amenityIds)
   const fetchFacility = async () => {
     try {
-      let facilityResponse = await axios.get(`${apiUrl}/api/v1/facilities`, {
-      });
-
+      const facilityResponse = await axios.get(
+        `${apiUrl}/api/v1/facilities?userId=${
+          getIdFromToken(authState.user?.access_token).sub
+        }`,
+        {}
+      );
       // Gelen veriyi formData'ya set et
       if (facilityResponse.data && facilityResponse.data.length > 0) {
         setFacility(facilityResponse.data[0]);

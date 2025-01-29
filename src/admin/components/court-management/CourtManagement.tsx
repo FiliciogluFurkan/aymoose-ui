@@ -18,9 +18,12 @@ const CourtManagement = (): JSX.Element => {
     useEffect(() => {
         const fetchFacility = async () => {
             try {
-                let facilityResponse = await axios.get(`${apiUrl}/api/v1/facilities`, {
-                });
-
+                const facilityResponse = await axios.get(
+                    `${apiUrl}/api/v1/facilities?userId=${
+                      getIdFromToken(authState.user?.access_token).sub
+                    }`,
+                    {}
+                  );
                 console.log(facilityResponse.data);
                 console.log("facility printed");
                 setFacilityResponse(facilityResponse);
