@@ -28,6 +28,7 @@ import { LocaleReservationUser } from '@/interfaces/admin/LocaleReservationUser'
 import { Account } from '@/interfaces/Account';
 import { Facility } from '@/interfaces/Facility';
 import { getFormattedDate } from '@/services/TimeServices';
+import { getIdFromToken } from '@/services/DecodedJwt';
 
 const ReservationSystem = (): JSX.Element => {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -111,8 +112,13 @@ const ReservationSystem = (): JSX.Element => {
 
     const fetchFacility = async () => {
       try {
-        let facilityResponse = await axios.get(`${apiUrl}/api/v1/facilities`, {
-        });
+        const facilityResponse = await axios.get(
+          `${apiUrl}/api/v1/facilities?userId=${
+            getIdFromToken(authState.user?.access_token).sub
+          }`,
+          {}
+        );
+
 
         console.log(facilityResponse.data);
         console.log("facility printed");

@@ -13,6 +13,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { Facility } from "@/interfaces/Facility";
 import { useAuth } from 'react-oidc-context';
+import { getIdFromToken } from "@/services/DecodedJwt";
 
 const PhotographGallery = (): JSX.Element => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -36,8 +37,12 @@ const PhotographGallery = (): JSX.Element => {
   useEffect(() => {
     const fetchFacility = async () => {
       try {
-        const facilityResponse = await axios.get(`${apiUrl}/api/v1/facilities`, {
-        });
+        const facilityResponse = await axios.get(
+          `${apiUrl}/api/v1/facilities?userId=${
+            getIdFromToken(authState.user?.access_token).sub
+          }`,
+          {}
+        );
 
         // Gelen veriyi formData'ya set et
         if (facilityResponse.data && facilityResponse.data.length > 0) {

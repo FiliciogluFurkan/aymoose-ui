@@ -44,16 +44,16 @@ const Facilities = (): JSX.Element => {
   useEffect(() => {
     const fetchCities = async () => {
       try {
-        const response = await axios.get(        
+        const response = await axios.get(
           apiUrl + "/api/v1/cities",
           {
-            
+
           }
         );
         setCities(response.data);
         console.log(response.data);
       } catch (err) {
-        
+
       }
     };
     fetchCities();
@@ -65,16 +65,16 @@ const Facilities = (): JSX.Element => {
   useEffect(() => {
     const fetchFields = async () => {
       try {
-        const response = await axios.get(        
+        const response = await axios.get(
           apiUrl + "/api/v1/facilities",
           {
-            
+
           }
         );
         setFacilities(response.data);
         console.log(response.data);
       } catch (err) {
-        
+
       }
     };
     fetchFields();
@@ -119,28 +119,28 @@ const Facilities = (): JSX.Element => {
     sortFacilities(selectedValue);
   };
 
- 
-    const sortFacilities = (sortOption: string) => {
-      let sortedFacilities;
-      switch (sortOption) {
-        case "priceAsc":
-          sortedFacilities = [...facilities].sort((a, b) => a.lowerPriceLimit - b.lowerPriceLimit);
-          break;
-        case "priceDesc":
-          sortedFacilities = [...facilities].sort((a, b) => b.lowerPriceLimit - a.lowerPriceLimit);
-          break;
-        case "ratingAsc":
-          sortedFacilities = [...facilities].sort((a, b) => parseFloat(a.rating) - parseFloat(b.rating));
-          break;
-        case "ratingDesc":
-          sortedFacilities = [...facilities].sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating));
-          break;
-        default:  // "recommended" or any default case
-          sortedFacilities = facilities;  // Keep original order for "recommended"
-          break;
-      }
-      setFacilities(sortedFacilities);  // Update state with sorted data
-    };
+
+  const sortFacilities = (sortOption: string) => {
+    let sortedFacilities;
+    switch (sortOption) {
+      case "priceAsc":
+        sortedFacilities = [...facilities].sort((a, b) => a.lowerPriceLimit - b.lowerPriceLimit);
+        break;
+      case "priceDesc":
+        sortedFacilities = [...facilities].sort((a, b) => b.lowerPriceLimit - a.lowerPriceLimit);
+        break;
+      case "ratingAsc":
+        sortedFacilities = [...facilities].sort((a, b) => parseFloat(a.rating) - parseFloat(b.rating));
+        break;
+      case "ratingDesc":
+        sortedFacilities = [...facilities].sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating));
+        break;
+      default:  // "recommended" or any default case
+        sortedFacilities = facilities;  // Keep original order for "recommended"
+        break;
+    }
+    setFacilities(sortedFacilities);  // Update state with sorted data
+  };
 
   return (
     <div>
@@ -232,21 +232,21 @@ const Facilities = (): JSX.Element => {
           >
             {(listType === "cities" ? cities : districts).map((item, index) => (
               <ListItem
-              component="li"
-              key={index}
-              onClick={() => handleSelect(item)}
-              sx={{
-                "&:hover": {
-                  backgroundColor: "#d3e3fd",
-                },
-                backgroundColor: "rgba(0, 0, 0, 50, 0.5)",
-              }}
-            >
-              <ListItemText 
-                primary={typeof item === "string" ? item : item.name}  // Access name if item is a City or District object
-                sx={{ color: "#333" }} 
-              />
-            </ListItem>
+                component="li"
+                key={index}
+                onClick={() => handleSelect(item)}
+                sx={{
+                  "&:hover": {
+                    backgroundColor: "#d3e3fd",
+                  },
+                  backgroundColor: "rgba(0, 0, 0, 50, 0.5)",
+                }}
+              >
+                <ListItemText
+                  primary={typeof item === "string" ? item : item.name}  // Access name if item is a City or District object
+                  sx={{ color: "#333" }}
+                />
+              </ListItem>
             ))}
           </List>
         </Popover>
@@ -272,7 +272,7 @@ const Facilities = (): JSX.Element => {
               onChange={handleSortChange}
               sx={{
                 width: "100%",
-                
+
                 borderRadius: "0.5rem",
                 height: "100%",
                 "& .MuiSelect-icon": { color: "#1976d2" },
@@ -334,41 +334,41 @@ const Facilities = (): JSX.Element => {
       </div>
 
       <Box sx={{ display: "flex", flexDirection: "row" }}>
-        
+
         <Box sx={{ width: "60%", overflowY: "auto", height: "100vh", flex: 1 }}>
-        
+
           <div className="footballcourts-list-fields-section">
-          {facilities
-      .filter(
-        (facility) =>
-          (!selectedCity || facility.city === selectedCity) &&
-          (!selectedDistrict || facility.district === selectedDistrict)
-      )
-      .map((facility) => {
-        const handleMouseEnter = () => {
-          setSelectedLocation(facility.location);
-        };
+            {facilities
+              .filter(
+                (facility) =>
+                  (!selectedCity || facility.city === selectedCity) &&
+                  (!selectedDistrict || facility.district === selectedDistrict)
+              )
+              .map((facility) => {
+                const handleMouseEnter = () => {
+                  setSelectedLocation(facility.location);
+                };
 
-        const handleClick = () => {
-          navigate(`/halisaha/${facility.id}`);
-        };
+                const handleClick = () => {
+                  navigate(`/halisaha/${facility.id}`);
+                };
 
-        return (
-          <div
-            key={facility.id}
-            onMouseEnter={handleMouseEnter}
-            onClick={handleClick}
-          >
-            <FacilityCarts facility={facility} />
-            <hr className="footballcourts-container-informations-hr-list-section" />
+                return (
+                  <div
+                    key={facility.id}
+                    onMouseEnter={handleMouseEnter}
+                    onClick={handleClick}
+                  >
+                    <FacilityCarts facility={facility} />
+                    <hr className="footballcourts-container-informations-hr-list-section" />
+                  </div>
+                );
+              })}
           </div>
-        );
-      })}
-          </div>
-          
+
         </Box>
-        
-        <Box sx={{ width: "38rem", height: "100vh", flexShrink: 0 }}>
+
+        <Box sx={{ width: "35vw", height: "100vh", flexShrink: 0 }}>
           <iframe
             className="football-courts-location-map-iframe"
             style={{ border: "0" }}

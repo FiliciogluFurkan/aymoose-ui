@@ -12,6 +12,7 @@ import { useAuth } from 'react-oidc-context';
 import { useEffect } from 'react';
 import { Reservation } from '@/interfaces/admin/Reservation';
 import { getFormattedDate } from '@/services/TimeServices';
+import { getIdFromToken } from '@/services/DecodedJwt';
 
 
 const ReservationCardBlock = ({ reservation, status }: { reservation:Reservation, status: string }) => (
@@ -84,8 +85,12 @@ const Analyzes = (): JSX.Element => {
     console.log(timeSlots)
     const fetchFacility = async () => {
       try {
-        let facilityResponse = await axios.get(`${apiUrl}/api/v1/facilities`, {
-        });
+        const facilityResponse = await axios.get(
+          `${apiUrl}/api/v1/facilities?userId=${
+            getIdFromToken(authState.user?.access_token).sub
+          }`,
+          {}
+        );
 
         console.log(facilityResponse.data);
         console.log("facility printed");

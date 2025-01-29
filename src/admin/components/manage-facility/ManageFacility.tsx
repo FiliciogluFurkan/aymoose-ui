@@ -37,16 +37,22 @@ const ManageFacility = (): JSX.Element => {
   ];
 
 
-  let facilityResponse;
+ 
 
   useEffect(() => {
     const fetchFacility = async () => {
       try {
-        facilityResponse = await axios.get(`${apiUrl}/api/v1/facilities`, {
-        });
-
+        const facilityResponse = await axios.get(
+          `${apiUrl}/api/v1/facilities?userId=${
+            getIdFromToken(authState.user?.access_token).sub
+          }`,
+          {}
+        );
+          console.log("facility Response:::")
+          console.log(facilityResponse);
         // Gelen veriyi formData'ya set et
         if (facilityResponse.data && facilityResponse.data.length > 0) {
+
           setOriginalData(facilityResponse.data[0]);
           setFacility(facilityResponse.data[0]);
         }
