@@ -22,10 +22,6 @@ import { City } from "@/interfaces/CityDistrict";
 import { District } from "@/interfaces/CityDistrict";
 
 
-
-
-
-
 const Facilities = (): JSX.Element => {
   const [cities, setCities] = useState<City[]>([]);
   const [districts, setDistricts] = useState<District[]>([]);
@@ -37,7 +33,7 @@ const Facilities = (): JSX.Element => {
   const [listType, setListType] = useState<"cities" | "districts" | null>(null);
   const [sortOption, setSortOption] = useState("recommended");
   /* const apiUrl = import.meta.env.VITE_API_URL; */
-  const apiUrl = "https://server.sahancepte.com";
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const navigate = useNavigate();
 
@@ -45,7 +41,7 @@ const Facilities = (): JSX.Element => {
     const fetchCities = async () => {
       try {
         const response = await axios.get(
-          apiUrl + "/api/v1/cities",
+          `${apiUrl}/api/v1/facilities`,
           {
 
           }

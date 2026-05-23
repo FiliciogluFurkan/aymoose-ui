@@ -68,7 +68,7 @@ const CourtManagement = (): JSX.Element => {
 
             // API isteği
             const response = await axios.patch(
-                `${baseURL}/${updateCourt.id}`, // URL'deki id değerini doğru kullanıyoruz
+                `${apiUrl}/api/v1/courts/${updateCourt.id}`, // URL'deki id değerini doğru kullanıyoruz
                 formData, // JSON verisi doğrudan gönderiliyor
                 {
                     headers: {
